@@ -30,7 +30,6 @@ class CryptoActivity : AppCompatActivity() {
         setupRecyclerView()
         observeViewModel()
         binding.btnRefresh.setOnClickListener {
-            binding.progressBarLoading.isVisible = true
             viewModel.refreshList()
         }
     }
@@ -47,12 +46,15 @@ class CryptoActivity : AppCompatActivity() {
                     when (it) {
                         is State.Initial -> {
                             binding.progressBarLoading.isVisible = false
+                            binding.btnRefresh.isEnabled = false
                         }
                         is State.Loading -> {
                             binding.progressBarLoading.isVisible = true
+                            binding.btnRefresh.isEnabled = false
                         }
                         is State.Content -> {
                             binding.progressBarLoading.isVisible = false
+                            binding.btnRefresh.isEnabled = true
                             adapter.submitList(it.currencyList)
                         }
                     }

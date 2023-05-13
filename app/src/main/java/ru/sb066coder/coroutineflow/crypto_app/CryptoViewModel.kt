@@ -1,9 +1,7 @@
 package ru.sb066coder.coroutineflow.crypto_app
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.*
 
 class CryptoViewModel : ViewModel() {
@@ -16,7 +14,7 @@ class CryptoViewModel : ViewModel() {
 //        .onStart { emit(State.Loading) }
 //        .asLiveData()
 
-    val state: LiveData<State> =  repository.getCurrencyList()
+    val state: Flow<State> =  repository.getCurrencyList()
         .filter { it.isNotEmpty() }
         .map { State.Content(currencyList = it) as State }
         .onStart {
@@ -29,5 +27,4 @@ class CryptoViewModel : ViewModel() {
         .onCompletion {
             Log.d("CryptoViewModel", "Complete")
         }
-        .asLiveData()
 }

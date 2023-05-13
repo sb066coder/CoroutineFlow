@@ -1,15 +1,33 @@
 package ru.sb066coder.coroutineflow.crypto_app
 
-import androidx.lifecycle.*
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.*
 
 class CryptoViewModel : ViewModel() {
 
     private val repository = CryptoRepository
 
-    val state: LiveData<State> = repository.getCurrencyList()
+//    val state: LiveData<State> = repository.getCurrencyList()
+//        .filter { it.isNotEmpty() }
+//        .map { State.Content(currencyList = it) as State }
+//        .onStart { emit(State.Loading) }
+//        .asLiveData()
+
+    val state: LiveData<State> =  repository.getCurrencyList()
         .filter { it.isNotEmpty() }
         .map { State.Content(currencyList = it) as State }
-        .onStart { emit(State.Loading) }
+        .onStart {
+            Log.d("CryptoViewModel", "Started")
+            emit(State.Loading)
+        }
+        .onEach {
+            Log.d("CryptoViewModel", "onEach")
+        }
+        .onCompletion {
+            Log.d("CryptoViewModel", "Complete")
+        }
         .asLiveData()
 }

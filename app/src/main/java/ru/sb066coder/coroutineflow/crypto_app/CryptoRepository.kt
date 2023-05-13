@@ -12,6 +12,7 @@ object CryptoRepository {
 
     fun getCurrencyList(): Flow<List<Currency>> {
         return flow {
+            emit(currencyList.toList())
             while (true) {
                 delay(3000)
                 generateCurrencyList()

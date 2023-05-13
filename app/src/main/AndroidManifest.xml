@@ -29,6 +29,9 @@
         <activity android:name=".crypto_app.CryptoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".team_score.TeamScoreActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

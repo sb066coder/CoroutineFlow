@@ -5,6 +5,7 @@ import android.os.Bundle
 import ru.sb066coder.coroutineflow.crypto_app.CryptoActivity
 import ru.sb066coder.coroutineflow.databinding.ActivityMainBinding
 import ru.sb066coder.coroutineflow.lesson2.UsersActivity
+import ru.sb066coder.coroutineflow.team_score.TeamScoreActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.buttonCryptoActivity.setOnClickListener {
             startActivity(CryptoActivity.newIntent(this))
+        }
+        binding.teamScoreActivity.setOnClickListener {
+            startActivity(TeamScoreActivity.newIntent(this))
         }
     }
 }

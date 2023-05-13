@@ -29,6 +29,10 @@ class CryptoActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupRecyclerView()
         observeViewModel()
+        binding.btnRefresh.setOnClickListener {
+            binding.progressBarLoading.isVisible = true
+            viewModel.refreshList()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -39,7 +43,7 @@ class CryptoActivity : AppCompatActivity() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) { // OR .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
-                viewModel.state.collect() {
+                viewModel.state.collect {
                     when (it) {
                         is State.Initial -> {
                             binding.progressBarLoading.isVisible = false
